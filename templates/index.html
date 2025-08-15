@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Traffic Flow Forecasting</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<style>
+            body {
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url('https://teltonika-networks.com/cdn/extras/11228/social-usecase-272-en-1200xAuto.jpg');
+            margin: 0;
+            padding: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            image-rendering: crisp-edges;
+            text-align: center;
+            color: blue;
+        }
+        button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: darkslategrey;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+        }
+</style>
+<body>
+  <div class="container">
+    <h1>🚦 Traffic Flow Forecasting using TGNN</h1>
+
+    <form action="/train" method="post">
+      <button type="submit">Train Model</button>
+    </form>
+  </div>
+</body>
+</html>
