@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Flow Forecasting Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url('https://teltonika-networks.com/cdn/extras/11228/social-usecase-272-en-1200xAuto.jpg');
+            margin: 0;
+            padding: 20px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            image-rendering: crisp-edges;
+        }
+        
+
+        h1 {
+            text-align: center;
+            color: blue;
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: #ecf0f1;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button.active {
+            background: #34495e;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .metrics p {
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        a {
+            color: blue;
+            text-decoration: none;
+            font-size: large;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Traffic Flow Forecasting Results</h1>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="showTab('metrics')">📐 Metrics</button>
+        <button class="tab-button" onclick="showTab('loss')">📉 Loss</button>
+        <button class="tab-button" onclick="showTab('predicted')">📍 Predicted vs Actual</button>
+        <button class="tab-button" onclick="showTab('mse')">📊 MSE Chart</button>
+        <button class="tab-button" onclick="showTab('heatmap')">🔥Heatmap</button>
+    </div>
+
+    <div id="metrics" class="tab-content active">
+        <div class="metrics">
+            <p><strong>Final Loss:</strong> {{ loss_values[-1]|round(4) }}</p>
+            <p><strong>Mean Squared Error (MSE):</strong> {{ mse_value|round(4) }}</p>
+        </div>
+    </div>
+
+    <div id="loss" class="tab-content">
+        <h3>Training Loss Over Epochs</h3>
+        <img src="{{ url_for('static', filename='images/loss_plot.png') }}" alt="Training Loss Plot">
+    </div>
+
+    <div id="predicted" class="tab-content">
+        <h3>Predicted vs Actual</h3>
+        <img src="{{ url_for('static', filename='images/predictions.png') }}" alt="Prediction Comparison">
+    </div>
+
+    <div id="mse" class="tab-content">
+        <h3>Mean Squared Error per Sample</h3>
+        <img src="{{ url_for('static', filename='images/mse_plot.png') }}" alt="MSE Bar Chart">
+    </div>
+    <div id="heatmap" class="tab-content">
+        <h3>Prediction Heatmap</h3>
+        <img src="{{ url_for('static', filename='images/heatmap.png') }}" alt="Heatmap">
+    </div>
+
+    <div class="back-link">
+        <a href="{{ url_for('index') }}">← Back to Home</a>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
